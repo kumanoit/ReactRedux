@@ -1,13 +1,30 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 
 class PostForm extends Component {
+    handleSubmit = (event) => {
+        event.preventDefault();
+        const title = this.getTitle.value;
+        const message = this.getMessage.value;
+        const data = {
+            id: new  Date(),
+            title: {title},
+            message: {message},
+        }
+        console.log(data);
+
+        this.props.dispatch({
+            type: 'ADD_POST',
+            data
+        });
+    }
     render() {
         return (
             <div>
                 <h1>Create Post</h1>
-                <form>
-                    <input required type="text" placeholder="Enter post title"/> <br/><br/>
-                    <textarea required rows="5" cols="28" placeholder="Enter Post" /><br /><br />
+                <form onSubmit={this.handleSubmit}>
+                    <input required type="text" ref = {(input) => this.getTitle = input} placeholder="Enter post title"/> <br/><br/>
+                    <textarea required rows="5" cols="28" ref = {(input) => this.getMessage = input} placeholder="Enter Post" /><br /><br />
                     <button>Post</button>
                 </form>
             </div>
@@ -15,4 +32,4 @@ class PostForm extends Component {
     }
 }
 
-export default PostForm;
+export default connect()(PostForm);
