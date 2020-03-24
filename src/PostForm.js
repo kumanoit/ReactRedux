@@ -10,6 +10,7 @@ class PostForm extends Component {
             id: new  Date(),
             title: {title},
             message: {message},
+            editing: false,
         }
         console.log(data);
 
